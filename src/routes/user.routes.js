@@ -10,7 +10,7 @@ const router = Router()
 
 router.get("/", passport.authenticate(['jwt', 'session'], {session:false}), authorizeRoles([]), getAll)
 
-router.post("/", passport.authenticate('register', {session:false}), create)
+router.post("/register", passport.authenticate('register', {session:false}), create)
 
 // router.get("/profile", isAuth, async(req, res) => {
 router.get("/profile", passport.authenticate(['jwt', 'session'], {session:false}), getProfile)

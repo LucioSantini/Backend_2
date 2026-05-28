@@ -90,44 +90,44 @@ const auth = (req, res, next) =>{
     res.status(400).json({status:"error", message:"usuario y contraseña invalidos"})
 }
 
-app.get("/session", (req, res) => {
-    if (req.session.contador) {
-        req.session.contador++
-        res.send("se ha visitado " + req.session.contador + " veces el Sitio Web")
-    } else {
-        req.session.contador = 1
-        res.send("bienvenido")
-    }
-})
+// app.get("/session", (req, res) => {
+//     if (req.session.contador) {
+//         req.session.contador++
+//         res.send("se ha visitado " + req.session.contador + " veces el Sitio Web")
+//     } else {
+//         req.session.contador = 1
+//         res.send("bienvenido")
+//     }
+// })
 
-app.get("/logout", (req, res) => {
-    req.session.destroy(error =>{
-        if (error) {
-            res.status(400).send("error hubo un problema en el cierre de sesion")
-        } else {
-            res.send("Sesion finalizada")
-        }
-    })
-})
+// app.get("/logout", (req, res) => {
+//     req.session.destroy(error =>{
+//         if (error) {
+//             res.status(400).send("error hubo un problema en el cierre de sesion")
+//         } else {
+//             res.send("Sesion finalizada")
+//         }
+//     })
+// })
 
-app.get("/login", auth, (req, res) =>{
-    const {usuario, contrasena} = req.query
-    req.session.usuario = usuario
-    req.session.contrasena = contrasena
-    // res.send("Datos del usuario almacenados")
-    res.json({"status":"ok"})
-})
+// app.get("/login", auth, (req, res) =>{
+//     const {usuario, contrasena} = req.query
+//     req.session.usuario = usuario
+//     req.session.contrasena = contrasena
+//     // res.send("Datos del usuario almacenados")
+//     res.json({"status":"ok"})
+// })
 
-app.get("/profile", (req, res) => {
-    const usuario = req.session.usuario
-    const contrasena = req.session.contrasena
-    res.send({usuario, contrasena})
-})
+// app.get("/profile", (req, res) => {
+//     const usuario = req.session.usuario
+//     const contrasena = req.session.contrasena
+//     res.send({usuario, contrasena})
+// })
 
-app.get("/privado", auth, (req, res) =>{
-    res.send("Estas accediendo al contenido Premium")
-})
+// app.get("/privado", auth, (req, res) =>{
+//     res.send("Estas accediendo al contenido Premium")
+// })
 
-app.use("/", viewRouter)
-app.use("/api/users", userRoutes)
-app.use("/api/auth", authRoutes)
+app.use("/view", viewRouter)
+app.use("/api/v1/auth", authRoutes)
+app.use("/api/v1/users", userRoutes)
