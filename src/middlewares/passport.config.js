@@ -72,7 +72,8 @@ const initializePassport = ()=>{
                 let user = await userModel.findOne({email})
                 if(!user){
                     user = await userModel.create({
-                        email: email, password:'password123'
+                        email: email,
+                        password:'password123'
                     })
 
                 }
